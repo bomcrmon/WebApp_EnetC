@@ -9,14 +9,24 @@
 <body>
     <h1> <center> Login NootNoot</center></h1>
     <hr>
+    
+    <center>ต้องการดูกระทู้หมายเลข <?php echo $_GET["id"];?></center>
+    <div align="center">
+    <?php 
+    $id=$_GET["id"];
+    if($id % 2 ==0)
+        echo "เป็นกระทู้หมายเลขคู่";
+        else
+        echo "เป็นกระทู้หมายเลขคี่";
+    ?>
+    </div>
     <br>
-    <center>ต้องการดูกระทู้หมายเลข <?php echo $_GET["id"];?></center><br>
     <table style="border:2px solid black; width:40%" align="center">    
             <tr><td style="background-color:#6cd2fe;color:black" colspan ="2"><center>แสดงความคิดเห็น</center> </td></tr>
             <tr><td></td><td><textarea name="message"rows="6" cols="100"></textarea></td></tr>
             
             <tr><td colspan ="2"><center><input type="submit" value="ส่งข้อความ" ></center></td></tr>    
     </table>
-    <center> <a href="index.html">กลับไปหน้าหลัก</a></center>
+    <center> <a href="index.php">กลับไปหน้าหลัก</a></center>
 </body>
 </html>

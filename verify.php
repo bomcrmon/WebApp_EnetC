@@ -9,9 +9,23 @@
 <body>
     <h1> <center> Login NootNoot</center></h1>
     <hr>
-    <br>
-    <center>เข้าสู่ระบบด้วย</center>
-    <center>Login = <?php echo $_POST["login"]; ?></center>
-    <center>Password = <?php echo $_POST["pwd"]; ?></center>
+    <div align="center">
+        <?php
+            $login=$_POST["login"];
+            $psd=$_POST["pwd"];
+            if($login=="admin" && $psd=="ad1234"){
+                echo "ยินดีต้อนรับคุณ ADMIN";
+            }
+            elseif($login=="member" && $psd=="mem1234"){
+                echo "ยินดีต้อนรับคุณ MEMBER";
+            }
+            else{
+                echo "ชื่อบัญชีหรื่อรหัสผ่านไม่ถูกต้อง";
+            }
+        ?>
+        <br><a href="index.php">กลับไปหน้าหลัก</a>
+    </div>
+     
+
 </body>
 </html>
