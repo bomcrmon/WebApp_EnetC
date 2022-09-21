@@ -1,3 +1,10 @@
+<?php
+    session_start();
+    if(isset($_SESSION['id'])){
+        header("location:index.php");
+        die();
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +14,9 @@
     <title>verify</title>
 </head>
 <body>
+    
+    
+    
     <h1> <center> Login NootNoot</center></h1>
     <hr>
     <div align="center">
@@ -15,9 +25,15 @@
             $psd=$_POST["pwd"];
             if($login=="admin" && $psd=="ad1234"){
                 echo "ยินดีต้อนรับคุณ ADMIN";
+                $_SESSION['username']='admin';
+                $_SESSION['role']='a';
+                $_SESSION['id']= session_id();
             }
             elseif($login=="member" && $psd=="mem1234"){
                 echo "ยินดีต้อนรับคุณ MEMBER";
+                $_SESSION['username']='member';
+                $_SESSION['role']='m';
+                $_SESSION['id']= session_id();
             }
             else{
                 echo "ชื่อบัญชีหรื่อรหัสผ่านไม่ถูกต้อง";
