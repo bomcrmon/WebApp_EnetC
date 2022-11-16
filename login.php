@@ -62,7 +62,7 @@
                             <div class="form-group mb-3">
                                 <label class="form-label">Password:</label>
                                 <div class="input-group">
-                                    <input type="password" name="pwd" class="form-control" id="password">
+                                    <input type="password" name="pass" class="form-control" id="password">
                                         <span class="input-group-text" onclick="password_show_hide();">
                                             <i class="bi bi-eye-fill" id="show_eye"></i>
                                             <i class="bi bi-eye-slash-fill d-none" id="hide_eye"></i>
