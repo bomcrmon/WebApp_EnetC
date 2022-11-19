@@ -36,28 +36,34 @@ if (!isset($_SESSION['id'])) {
             <br>
             <div class="d-flex">
                 <div class="p-1">
-                <label>หมวดหมู่</label>
+                    <label>หมวดหมู่</label>
                 </div>
                 <div class="p-1">
-                <select name="category" class="form-select">
-                    <?php
-                    $conn = new PDO("mysql:host=localhost;dbname=webboard; charset=utf8", "root", "");
-                    $sql = "SELECT * FROM category";
-                    foreach ($conn->query($sql) as $row) {
-                        echo "<option value=" . $row['id'] . " >" . $row['name'] . "</option>";
-                    }
-                    $conn = null;
-                    ?>
-                </select>
+                    <select name="category" class="form-select">
+                        <?php
+                        $conn = new PDO("mysql:host=localhost;dbname=webboard; charset=utf8", "root", "");
+                        $sql = "SELECT * FROM category";
+                        echo "<option value= 0 >  --เรื่องทั้งหมด--- </option>";
+                        foreach ($conn->query($sql) as $row) {
+                            echo "<option value=" . $row['id'] . " >" . $row['c_name'] . "</option>";
+                        }
+                        $conn = null;
+                        ?>
+                    </select>
                 </div>
             </div>
-            
+
             <br>
             <table class="table table-striped">
                 <ul>
                     <?php
-                    for ($i = 1; $i <= 10; $i++) {
-                        echo "<tr><td><a href=post.php?id=$i style=text-decoration:none>กระทู้ที่ $i</a></td></tr>";
+                    $conn = new PDO("mysql:host=localhost;dbname=webboard; charset=utf8", "root", "");
+                    $sql = "SELECT p.id,p.title,p.post_date,p.cat_id,p.user_id,c.c_name,u.name FROM post as p INNER JOIN category as c ON p.cat_id = c.id INNER JOIN user as u ON p.user_id = u.id";
+
+                    foreach ($conn->query($sql) as $row) {
+                        echo "<tr>";
+                        echo "<td>[ $row[c_name] ] <a href=post.php?id=$row[id] style=text-decoration:none>$row[title]</a><br> $row[name] $row[post_date] </td>";
+
                     }
                     ?>
                 </ul>
@@ -75,37 +81,41 @@ if (!isset($_SESSION['id'])) {
             </h1>
             <?php include "nav.php"; ?>
             <br>
-            <div class="d-flex ">               
-                    <div class="p-1">
+            <div class="d-flex ">
+                <div class="p-1">
                     <label>หมวดหมู่</label>
-                    </div>
-                    <div class="p-1">
-                        <select name="category" class="form-select">
-                            <?php
-                            $conn = new PDO("mysql:host=localhost;dbname=webboard; charset=utf8", "root", "");
-                            $sql = "SELECT * FROM category";
-                            foreach ($conn->query($sql) as $row) {
-                                echo "<option value=" . $row['id'] . " >" . $row['name'] . "</option>";
-                            }
-                            $conn = null;
-                            ?>
-                        </select>
-                    </div>
-                   
-                    <div class="ms-auto p-1">
-                        <a href="newpost.php" class="btn btn-success btn-sm">
-                            <i class="bi bi-plus"></i>สร้างกระทู้ใหม่</a>
-                    </div>                
+                </div>
+                <div class="p-1">
+                    <select name="category" class="form-select">
+                        <?php
+                        $conn = new PDO("mysql:host=localhost;dbname=webboard; charset=utf8", "root", "");
+                        $sql = "SELECT * FROM category";
+                        echo "<option value= 0 >  --เรื่องทั้งหมด--- </option>";
+                        foreach ($conn->query($sql) as $row) {
+                            echo "<option value=" . $row['id'] . " >" . $row['c_name'] . "</option>";
+                        }
+                        $conn = null;
+                        ?>
+                    </select>
+                </div>
+
+                <div class="ms-auto p-1">
+                    <a href="newpost.php" class="btn btn-success btn-sm">
+                        <i class="bi bi-plus"></i>สร้างกระทู้ใหม่</a>
+                </div>
             </div>
             <br>
             <table class="table table-striped">
                 <ul>
                     <?php
-                    for ($i = 1; $i <= 10; $i++) {
-                        echo "<tr><td><a href=post.php?id=$i style=text-decoration:none>กระทู้ที่ $i</a></td>";
+                    $conn = new PDO("mysql:host=localhost;dbname=webboard; charset=utf8", "root", "");
+                    $sql = "SELECT p.id,p.title,p.post_date,p.cat_id,p.user_id,c.c_name,u.name FROM post as p INNER JOIN category as c ON p.cat_id = c.id INNER JOIN user as u ON p.user_id = u.id";
+
+                    foreach ($conn->query($sql) as $row) {
+                        echo "<tr>";
+                        echo "<td>[ $row[c_name] ] <a href=post.php?id=$row[id] style=text-decoration:none>$row[title]</a><br> $row[name] $row[post_date] </td>";
                         if ($_SESSION['role'] == 'a') {
-                            echo "<td><a href=delete.php?id=$i class='btn btn-danger btn-sm' onclick='return myFunction1();'>
-                        <i class='bi bi-trash'></i></a></td>";
+                            echo "<td><a href=delete.php?id=$row[id] class='btn btn-danger btn-sm' onclick='return myFunction1();'><i class='bi bi-trash'></i></a></td>";
                         }
                         echo "</tr>";
                     }
